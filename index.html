@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my valentine?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fce4ec; /* Light pink */
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #ff69b4; /* Hot pink */
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #yesButton {
+            background-color: #ff1493; /* Deep pink */
+            color: white;
+        }
+
+        #noButton {
+            background-color: #ffb6c1; /* Light pink */
+            color: #333;
+        }
+
+        #message {
+            font-style: italic;
+            color: #777;
+        }
+
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ff1493; /* Deep pink */
+            animation: explode 1s ease-out;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(10); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Will you be my valentine?</h1>
+        <button id="yesButton" onclick="onYesClick()">Yes</button>
+        <button id="noButton" onclick="onNoClick()">No</button>
+        <p id="message"></p>
+    </div>
+    <script>
+        let noClickCount = 0;
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const message = document.getElementById('message');
+
+        const randomMessages = [
+            "I guess it's just you and me now... ❤️",
+            "Oh no, why would you say no? 😢",
+            "Maybe next time? 💔",
+            "You're breaking my heart! 💔",
+            "Is there someone else? 💔"
+        ];
+
+        function onYesClick() {
+            message.innerText = "Yay, Let's get married!";
+            // Fireworks effect
+            createFireworks();
+            // Increase the size of Yes button
+            yesButton.style.width = (parseInt(window.getComputedStyle(yesButton).width) + 20) + 'px';
+            yesButton.style.height = (parseInt(window.getComputedStyle(yesButton).height) + 10) + 'px';
+            // Decrease the size of No button
+            noButton.style.width = (parseInt(window.getComputedStyle(noButton).width) - 10) + 'px';
+            noButton.style.height = (parseInt(window.getComputedStyle(noButton).height) - 5) + 'px';
+        }
+
+        function onNoClick() {
+            noClickCount++;
+            if (noClickCount >= 5) {
+                noButton.style.display = 'none';
+                message.innerText = "I guess it's just you and me now... ❤️";
+            } else {
+                // Decrease the size of No button
+                noButton.style.width = (parseInt(window.getComputedStyle(noButton).width) - 10) + 'px';
+                noButton.style.height = (parseInt(window.getComputedStyle(noButton).height) - 5) + 'px';
+                // Increase the size of Yes button
+                yesButton.style.width = (parseInt(window.getComputedStyle(yesButton).width) + 10) + 'px';
+                yesButton.style.height = (parseInt(window.getComputedStyle(yesButton).height) + 5) + 'px';
+                // Display a random message
+                const randomIndex = Math.floor(Math.random() * randomMessages.length);
+                message.innerText = randomMessages[randomIndex];
+            }
+        }
+
+        function createFireworks() {
+            const fireworks = document.createElement('div');
+            fireworks.className = 'firework';
+            fireworks.style.left = Math.random() * window.innerWidth + 'px';
+            fireworks.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(fireworks);
+            setTimeout(() => {
+                fireworks.remove();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
